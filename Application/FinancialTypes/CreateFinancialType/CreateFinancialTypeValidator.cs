@@ -2,9 +2,9 @@
 
 namespace Application.FinancialTypes.CreateFinancialType;
 
-public class UpdateFinancialTypeValidator : AbstractValidator<CreateFinancialTypeRequest>
+public class CreateFinancialTypeValidator : AbstractValidator<CreateFinancialTypeRequest>
 {
-    public UpdateFinancialTypeValidator()
+    public CreateFinancialTypeValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
     }

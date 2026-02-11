@@ -1,4 +1,5 @@
-﻿using Domain.FinancialTypes;
+﻿using Domain.Classifications;
+using Domain.FinancialTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database.Context;
@@ -6,6 +7,7 @@ namespace Infrastructure.Database.Context;
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<FinancialType> FinancialTypes { get; set; }
+    public DbSet<Classification> Classifications { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
