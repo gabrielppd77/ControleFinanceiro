@@ -1,4 +1,5 @@
 ﻿using Domain.Classifications;
+using Domain.FinancialEntries;
 using Domain.FinancialTypes;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 {
     public DbSet<FinancialType> FinancialTypes { get; set; }
     public DbSet<Classification> Classifications { get; set; }
+    public DbSet<FinancialEntry> FinancialEntries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

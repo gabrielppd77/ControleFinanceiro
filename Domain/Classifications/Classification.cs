@@ -4,7 +4,7 @@ namespace Domain.Classifications;
 
 public class Classification : Entity
 {
-    public string Name { get; private set; }
+    public string Name { get; protected set; }
 
     protected Classification() { }
 

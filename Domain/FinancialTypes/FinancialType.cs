@@ -4,7 +4,7 @@ namespace Domain.FinancialTypes;
 
 public class FinancialType : Entity
 {
-    public string Name { get; private set; }
+    public string Name { get; protected set; }
 
     protected FinancialType() { }
 

@@ -2,7 +2,7 @@
 using Infrastructure.Database.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Database.Repositories;
+namespace Infrastructure.Database.Repositories.Base;
 
 public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
