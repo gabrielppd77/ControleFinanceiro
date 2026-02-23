@@ -1,10 +1,11 @@
 ﻿using Application.Base;
+using Application.FinancialTypes.Common;
 using Contracts.Repositories.Base;
 using Domain.FinancialTypes;
 
 namespace Application.FinancialTypes.ListFinancialType;
 
-public class ListFinancialTypeService : IServiceHandler<Unit, List<ListFinancialTypeResponse>>
+public class ListFinancialTypeService : IServiceHandler<Unit, List<FinancialTypeResponse>>
 {
     private readonly IBaseRepository<FinancialType> _financialTypeRepository;
 
@@ -13,10 +14,10 @@ public class ListFinancialTypeService : IServiceHandler<Unit, List<ListFinancial
         _financialTypeRepository = financialTypeRepository;
     }
 
-    public async Task<List<ListFinancialTypeResponse>> Handle(Unit request)
+    public async Task<List<FinancialTypeResponse>> Handle(Unit request)
     {
         var financialTypes = await _financialTypeRepository.GetAll();
 
-        return financialTypes.Select(x => new ListFinancialTypeResponse(x.Id, x.Name)).ToList();
+        return financialTypes.Select(x => new FinancialTypeResponse(x.Id, x.Name)).ToList();
     }
 }

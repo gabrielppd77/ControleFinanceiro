@@ -5,7 +5,7 @@ using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApi();
+builder.Services.AddApi(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 

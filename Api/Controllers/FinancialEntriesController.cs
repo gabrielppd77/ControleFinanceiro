@@ -11,28 +11,28 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class FinancialEntriesController : ApiController
 {
-    [HttpPost("[action]")]
+    [HttpPost]
     public async Task<IActionResult> Create(IServiceHandler<CreateFinancialEntryRequest, Success> service, CreateFinancialEntryRequest request)
     {
         await service.Handle(request);
         return Ok();
     }
 
-    [HttpPut("[action]")]
+    [HttpPut]
     public async Task<IActionResult> Update(IServiceHandler<UpdateFinancialEntryRequest, Success> service, UpdateFinancialEntryRequest request)
     {
         await service.Handle(request);
         return Ok();
     }
 
-    [HttpDelete("[action]")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(IServiceHandler<DeleteFinancialEntryRequest, Success> service, Guid id)
     {
         await service.Handle(new DeleteFinancialEntryRequest(id));
         return Ok();
     }
 
-    [HttpGet("[action]")]
+    [HttpGet]
     public async Task<IActionResult> List(IServiceHandler<Unit, List<ListFinancialEntryResponse>> service)
     {
         var response = await service.Handle(Unit.Value);

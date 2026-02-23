@@ -11,28 +11,28 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class ClassificationsController : ApiController
 {
-    [HttpPost("[action]")]
+    [HttpPost]
     public async Task<IActionResult> Create(IServiceHandler<CreateClassificationRequest, Success> service, CreateClassificationRequest request)
     {
         await service.Handle(request);
         return Ok();
     }
 
-    [HttpPut("[action]")]
+    [HttpPut]
     public async Task<IActionResult> Update(IServiceHandler<UpdateClassificationRequest, Success> service, UpdateClassificationRequest request)
     {
         await service.Handle(request);
         return Ok();
     }
 
-    [HttpDelete("[action]")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(IServiceHandler<DeleteClassificationRequest, Success> service, Guid id)
     {
         await service.Handle(new DeleteClassificationRequest(id));
         return Ok();
     }
 
-    [HttpGet("[action]")]
+    [HttpGet]
     public async Task<IActionResult> List(IServiceHandler<Unit, List<ListClassificationResponse>> service)
     {
         var response = await service.Handle(Unit.Value);
