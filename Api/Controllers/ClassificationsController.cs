@@ -1,8 +1,9 @@
 ﻿using Api.Controllers.Base;
 using Application.Base;
+using Application.Classifications.Common;
 using Application.Classifications.CreateClassification;
 using Application.Classifications.DeleteClassification;
-using Application.Classifications.ListClassification;
+using Application.Classifications.GetClassification;
 using Application.Classifications.UpdateClassification;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +34,16 @@ public class ClassificationsController : ApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> List(IServiceHandler<Unit, List<ListClassificationResponse>> service)
+    public async Task<IActionResult> List(IServiceHandler<Unit, List<ClassificationResponse>> service)
     {
         var response = await service.Handle(Unit.Value);
+        return Ok(response);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(IServiceHandler<GetClassificationRequest, ClassificationResponse> service, Guid id)
+    {
+        var response = await service.Handle(new GetClassificationRequest(id));
         return Ok(response);
     }
 }

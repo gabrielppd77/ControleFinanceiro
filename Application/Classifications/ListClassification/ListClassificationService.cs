@@ -1,10 +1,11 @@
 ﻿using Application.Base;
+using Application.Classifications.Common;
 using Contracts.Repositories.Base;
 using Domain.Classifications;
 
 namespace Application.Classifications.ListClassification;
 
-public class ListClassificationService : IServiceHandler<Unit, List<ListClassificationResponse>>
+public class ListClassificationService : IServiceHandler<Unit, List<ClassificationResponse>>
 {
     private readonly IBaseRepository<Classification> _classificationRepository;
 
@@ -13,10 +14,10 @@ public class ListClassificationService : IServiceHandler<Unit, List<ListClassifi
         _classificationRepository = classificationRepository;
     }
 
-    public async Task<List<ListClassificationResponse>> Handle(Unit request)
+    public async Task<List<ClassificationResponse>> Handle(Unit request)
     {
         var classifications = await _classificationRepository.GetAll();
 
-        return classifications.Select(x => new ListClassificationResponse(x.Id, x.Name)).ToList();
+        return classifications.Select(x => new ClassificationResponse(x.Id, x.Name)).ToList();
     }
 }
