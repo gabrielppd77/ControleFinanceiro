@@ -3,7 +3,7 @@ using Contracts.Repositories.Base;
 using Domain.Exceptions;
 using Domain.FinancialEntries;
 
-namespace Application.FinancialEntrys.UpdateFinancialEntry;
+namespace Application.FinancialEntries.UpdateFinancialEntry;
 
 public class UpdateFinancialEntryService : IServiceHandler<UpdateFinancialEntryRequest, Success>
 {

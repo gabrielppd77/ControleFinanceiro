@@ -1,4 +1,4 @@
-﻿namespace Application.FinancialEntrys.UpdateFinancialEntry;
+﻿namespace Application.FinancialEntries.UpdateFinancialEntry;
 
 public record UpdateFinancialEntryRequest(
     Guid Id, 

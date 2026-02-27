@@ -1,7 +1,7 @@
 ﻿using Application.Base;
 using Contracts.Repositories;
 
-namespace Application.FinancialEntrys.ListFinancialEntry;
+namespace Application.FinancialEntries.ListFinancialEntry;
 
 public class ListFinancialEntryService : IServiceHandler<Unit, List<ListFinancialEntryResponse>>
 {

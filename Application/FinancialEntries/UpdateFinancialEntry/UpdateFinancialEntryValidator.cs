@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.FinancialEntrys.UpdateFinancialEntry;
+namespace Application.FinancialEntries.UpdateFinancialEntry;
 
 public class UpdateFinancialEntryValidator : AbstractValidator<UpdateFinancialEntryRequest>
 {

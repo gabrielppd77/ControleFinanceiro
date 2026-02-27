@@ -1,3 +1,3 @@
-﻿namespace Application.FinancialEntrys.DeleteFinancialEntry;
+﻿namespace Application.FinancialEntries.DeleteFinancialEntry;
 
 public record DeleteFinancialEntryRequest(Guid Id);

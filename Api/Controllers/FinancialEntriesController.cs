@@ -1,9 +1,10 @@
 ﻿using Api.Controllers.Base;
 using Application.Base;
-using Application.FinancialEntrys.CreateFinancialEntry;
-using Application.FinancialEntrys.DeleteFinancialEntry;
-using Application.FinancialEntrys.ListFinancialEntry;
-using Application.FinancialEntrys.UpdateFinancialEntry;
+using Application.FinancialEntries.CreateFinancialEntry;
+using Application.FinancialEntries.DeleteFinancialEntry;
+using Application.FinancialEntries.GetFinancialEntries;
+using Application.FinancialEntries.ListFinancialEntry;
+using Application.FinancialEntries.UpdateFinancialEntry;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -36,6 +37,13 @@ public class FinancialEntriesController : ApiController
     public async Task<IActionResult> List(IServiceHandler<Unit, List<ListFinancialEntryResponse>> service)
     {
         var response = await service.Handle(Unit.Value);
+        return Ok(response);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(IServiceHandler<GetFinancialEntryRequest, GetFinancialEntryResponse> service, Guid id)
+    {
+        var response = await service.Handle(new GetFinancialEntryRequest(id));
         return Ok(response);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.FinancialEntrys.DeleteFinancialEntry;
+namespace Application.FinancialEntries.DeleteFinancialEntry;
 
 public class DeleteFinancialEntryValidator : AbstractValidator<DeleteFinancialEntryRequest>
 {

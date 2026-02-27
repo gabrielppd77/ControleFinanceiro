@@ -3,7 +3,7 @@ using Contracts.Repositories.Base;
 using Domain.Exceptions;
 using Domain.FinancialEntries;
 
-namespace Application.FinancialEntrys.DeleteFinancialEntry;
+namespace Application.FinancialEntries.DeleteFinancialEntry;
 
 public class DeleteFinancialEntryService : IServiceHandler<DeleteFinancialEntryRequest, Success>
 {

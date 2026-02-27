@@ -1,4 +1,4 @@
-﻿namespace Application.FinancialEntrys.ListFinancialEntry;
+﻿namespace Application.FinancialEntries.ListFinancialEntry;
 
 public record ListFinancialEntryResponse(
     Guid Id,

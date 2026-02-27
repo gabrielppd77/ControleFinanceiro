@@ -2,7 +2,7 @@
 using Contracts.Repositories.Base;
 using Domain.FinancialEntries;
 
-namespace Application.FinancialEntrys.CreateFinancialEntry;
+namespace Application.FinancialEntries.CreateFinancialEntry;
 
 public class CreateFinancialEntryService : IServiceHandler<CreateFinancialEntryRequest, Success>
 {
