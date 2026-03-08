@@ -16,4 +16,12 @@ public class FinancialEntryRepository : BaseRepository<FinancialEntry>, IFinanci
     {
         return await _dbSet.Include(x => x.Type).Include(x => x.Classification).ToListAsync();
     }
+
+    public async Task<List<FinancialEntry>> GetEntriesOfMonth(DateTime date)
+    {
+        return await _dbSet
+            .Where(x => x.Date.Month == date.Month)
+            .Where(x => x.Date.Year == date.Year)
+            .ToListAsync();
+    }
 }
