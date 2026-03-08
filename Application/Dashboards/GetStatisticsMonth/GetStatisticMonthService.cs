@@ -1,7 +1,7 @@
 ﻿using Application.Base;
 using Application.Dashboards.GetStatisticsMonth.Response;
-using Contracts.Repositories;
 using Contracts.Repositories.Base;
+using Contracts.Repositories.FinancialEntries;
 using Domain.Classifications;
 using Domain.FinancialTypes;
 
@@ -28,6 +28,7 @@ public class GetStatisticMonthService : IServiceHandler<GetStatisticMonthRequest
         var financialTypesData = await _financialTypeRepository.GetAll();
         var classificationsData = await _classificationRepository.GetAll();
         var financialEntriesMonth = await _financialEntryRepository.GetEntriesOfMonth(request.Date);
+        var classificationsOfYear = await _financialEntryRepository.GetChartDataOfYear(request.Date);
 
         var financialTypesResponse = new List<GetStatisticMonthItemResponse>();
         var classificationsResponse = new List<GetStatisticMonthItemResponse>();
@@ -47,6 +48,6 @@ public class GetStatisticMonthService : IServiceHandler<GetStatisticMonthRequest
         financialTypesResponse = financialTypesResponse.OrderByDescending(x => x.Value).ToList();
         classificationsResponse = classificationsResponse.OrderByDescending(x => x.Value).ToList();
 
-        return new GetStatisticMonthResponse(financialTypesResponse, classificationsResponse);
+        return new GetStatisticMonthResponse(financialTypesResponse, classificationsResponse, classificationsOfYear);
     }
 }

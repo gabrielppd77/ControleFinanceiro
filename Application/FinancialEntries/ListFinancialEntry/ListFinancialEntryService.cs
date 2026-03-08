@@ -1,5 +1,5 @@
 ﻿using Application.Base;
-using Contracts.Repositories;
+using Contracts.Repositories.FinancialEntries;
 
 namespace Application.FinancialEntries.ListFinancialEntry;
 

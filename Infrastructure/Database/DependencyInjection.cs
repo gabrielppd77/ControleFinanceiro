@@ -1,5 +1,5 @@
-﻿using Contracts.Repositories;
-using Contracts.Repositories.Base;
+﻿using Contracts.Repositories.Base;
+using Contracts.Repositories.FinancialEntries;
 using Infrastructure.Database.Context;
 using Infrastructure.Database.Repositories;
 using Infrastructure.Database.Repositories.Base;
