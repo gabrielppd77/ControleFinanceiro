@@ -1,22 +1,21 @@
 ﻿using Application.Base;
 using Application.Dashboards.GetStatisticsMonth.Response;
-using Contracts.Repositories.Base;
+using Contracts.Repositories.Classifications;
 using Contracts.Repositories.FinancialEntries;
-using Domain.Classifications;
-using Domain.FinancialTypes;
+using Contracts.Repositories.FinancialTypes;
 
 namespace Application.Dashboards.GetStatisticsMonth;
 
 public class GetStatisticMonthService : IServiceHandler<GetStatisticMonthRequest, GetStatisticMonthResponse>
 {
     private readonly IFinancialEntryRepository _financialEntryRepository;
-    private readonly IBaseRepository<FinancialType> _financialTypeRepository;
-    private readonly IBaseRepository<Classification> _classificationRepository;
+    private readonly IFinancialTypeRepository _financialTypeRepository;
+    private readonly IClassificationRepository _classificationRepository;
 
     public GetStatisticMonthService(
         IFinancialEntryRepository financialEntryRepository,
-        IBaseRepository<FinancialType> financialTypeRepository,
-        IBaseRepository<Classification> classificationRepository)
+        IFinancialTypeRepository financialTypeRepository,
+        IClassificationRepository classificationRepository)
     {
         _financialEntryRepository = financialEntryRepository;
         _financialTypeRepository = financialTypeRepository;

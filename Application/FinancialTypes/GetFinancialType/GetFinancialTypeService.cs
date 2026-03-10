@@ -1,16 +1,15 @@
 ﻿using Application.Base;
 using Application.FinancialTypes.Common;
-using Contracts.Repositories.Base;
+using Contracts.Repositories.FinancialTypes;
 using Domain.Exceptions;
-using Domain.FinancialTypes;
 
 namespace Application.FinancialTypes.GetFinancialType;
 
 public class GetFinancialTypeService : IServiceHandler<GetFinancialTypeRequest, FinancialTypeResponse>
 {
-    private readonly IBaseRepository<FinancialType> _financialTypeRepository;
+    private readonly IFinancialTypeRepository _financialTypeRepository;
 
-    public GetFinancialTypeService(IBaseRepository<FinancialType> financialTypeRepository)
+    public GetFinancialTypeService(IFinancialTypeRepository financialTypeRepository)
     {
         _financialTypeRepository = financialTypeRepository;
     }

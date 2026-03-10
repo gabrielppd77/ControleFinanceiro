@@ -3,25 +3,27 @@ using Contracts.Repositories.FinancialEntries;
 using Contracts.Repositories.FinancialEntries.Dtos;
 using Domain.FinancialEntries;
 using Infrastructure.Database.Context;
-using Infrastructure.Database.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Database.Repositories;
+namespace Infrastructure.Database.Repositories.FinancialEntries;
 
-public class FinancialEntryRepository : BaseRepository<FinancialEntry>, IFinancialEntryRepository
+public class FinancialEntryRepository :  IFinancialEntryRepository
 {
-    public FinancialEntryRepository(ApplicationDbContext context) : base(context)
+    private ApplicationDbContext _context;
+
+    public FinancialEntryRepository(ApplicationDbContext context)
     {
+        _context = context;
     }
 
     public async Task<List<FinancialEntry>> GetAllToList()
     {
-        return await _dbSet.Include(x => x.Type).Include(x => x.Classification).ToListAsync();
+        return await _context.FinancialEntries.Include(x => x.Type).Include(x => x.Classification).ToListAsync();
     }
 
     public async Task<List<FinancialEntry>> GetEntriesOfMonth(DateTime date)
     {
-        return await _dbSet
+        return await _context.FinancialEntries
             .Where(x => x.Date.Month == date.Month)
             .Where(x => x.Date.Year == date.Year)
             .ToListAsync();
@@ -31,7 +33,7 @@ public class FinancialEntryRepository : BaseRepository<FinancialEntry>, IFinanci
     {
         var year = date.Year;
 
-        var result = await _dbSet
+        var result = await _context.FinancialEntries
             .Where(x => x.Date.Year == year)
             .GroupBy(x => new
             {
@@ -53,5 +55,20 @@ public class FinancialEntryRepository : BaseRepository<FinancialEntry>, IFinanci
                 x.Label, 
                 x.Value))
             .ToList();
+    }
+
+    public async Task Add(FinancialEntry financialEntry)
+    {
+        await _context.FinancialEntries.AddAsync(financialEntry);
+    }
+
+    public async Task<FinancialEntry?> GetById(Guid id)
+    {
+        return await _context.FinancialEntries.FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public void Remove(FinancialEntry financialEntry)
+    {
+        _context.FinancialEntries.Remove(financialEntry);
     }
 }

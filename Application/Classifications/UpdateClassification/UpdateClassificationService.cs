@@ -1,17 +1,19 @@
 ﻿using Application.Base;
-using Contracts.Repositories.Base;
+using Contracts.Repositories;
+using Contracts.Repositories.Classifications;
 using Domain.Exceptions;
-using Domain.Classifications;
 
 namespace Application.Classifications.UpdateClassification;
 
 public class UpdateClassificationService : IServiceHandler<UpdateClassificationRequest, Success>
 {
-    private readonly IBaseRepository<Classification> _classificationRepository;
+    private readonly IClassificationRepository _classificationRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateClassificationService(IBaseRepository<Classification> classificationRepository)
+    public UpdateClassificationService(IClassificationRepository classificationRepository, IUnitOfWork unitOfWork)
     {
         _classificationRepository = classificationRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Success> Handle(UpdateClassificationRequest request)
@@ -22,7 +24,7 @@ public class UpdateClassificationService : IServiceHandler<UpdateClassificationR
 
         classification.Update(request.Name);
 
-        await _classificationRepository.SaveChanges();
+        await _unitOfWork.SaveChanges();
 
         return Success.Value;
     }

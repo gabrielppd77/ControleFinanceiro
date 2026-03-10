@@ -1,17 +1,19 @@
 ﻿using Application.Base;
-using Contracts.Repositories.Base;
+using Contracts.Repositories;
+using Contracts.Repositories.FinancialTypes;
 using Domain.Exceptions;
-using Domain.FinancialTypes;
 
 namespace Application.FinancialTypes.UpdateFinancialType;
 
 public class UpdateFinancialTypeService : IServiceHandler<UpdateFinancialTypeRequest, Success>
 {
-    private readonly IBaseRepository<FinancialType> _financialTypeRepository;
+    private readonly IFinancialTypeRepository _financialTypeRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateFinancialTypeService(IBaseRepository<FinancialType> financialTypeRepository)
+    public UpdateFinancialTypeService(IFinancialTypeRepository financialTypeRepository, IUnitOfWork unitOfWork)
     {
         _financialTypeRepository = financialTypeRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Success> Handle(UpdateFinancialTypeRequest request)
@@ -22,7 +24,7 @@ public class UpdateFinancialTypeService : IServiceHandler<UpdateFinancialTypeReq
 
         financialType.Update(request.Name);
 
-        await _financialTypeRepository.SaveChanges();
+        await _unitOfWork.SaveChanges();
 
         return Success.Value;
     }

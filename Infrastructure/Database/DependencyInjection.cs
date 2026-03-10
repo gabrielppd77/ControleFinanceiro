@@ -1,8 +1,14 @@
-﻿using Contracts.Repositories.Base;
+﻿using Contracts.Repositories;
+using Contracts.Repositories.Classifications;
 using Contracts.Repositories.FinancialEntries;
+using Contracts.Repositories.FinancialTypes;
+using Contracts.Repositories.Users;
 using Infrastructure.Database.Context;
 using Infrastructure.Database.Repositories;
-using Infrastructure.Database.Repositories.Base;
+using Infrastructure.Database.Repositories.Classifications;
+using Infrastructure.Database.Repositories.FinancialEntries;
+using Infrastructure.Database.Repositories.FinancialTypes;
+using Infrastructure.Database.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -24,8 +30,10 @@ public static class DependencyInjection
 
     public static void AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IClassificationRepository, ClassificationRepository>();
+        services.AddScoped<IFinancialTypeRepository, FinancialTypeRepository>();
         services.AddScoped<IFinancialEntryRepository, FinancialEntryRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 }

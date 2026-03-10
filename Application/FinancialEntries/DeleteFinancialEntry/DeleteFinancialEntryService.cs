@@ -1,17 +1,19 @@
 ﻿using Application.Base;
-using Contracts.Repositories.Base;
+using Contracts.Repositories;
+using Contracts.Repositories.FinancialEntries;
 using Domain.Exceptions;
-using Domain.FinancialEntries;
 
 namespace Application.FinancialEntries.DeleteFinancialEntry;
 
 public class DeleteFinancialEntryService : IServiceHandler<DeleteFinancialEntryRequest, Success>
 {
-    private readonly IBaseRepository<FinancialEntry> _financialEntryRepository;
+    private readonly IFinancialEntryRepository _financialEntryRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteFinancialEntryService(IBaseRepository<FinancialEntry> financialEntryRepository)
+    public DeleteFinancialEntryService(IFinancialEntryRepository financialEntryRepository, IUnitOfWork unitOfWork)
     {
         _financialEntryRepository = financialEntryRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Success> Handle(DeleteFinancialEntryRequest request)
@@ -22,7 +24,7 @@ public class DeleteFinancialEntryService : IServiceHandler<DeleteFinancialEntryR
 
         _financialEntryRepository.Remove(financialEntry);
 
-        await _financialEntryRepository.SaveChanges();
+        await _unitOfWork.SaveChanges();
 
         return Success.Value;
     }

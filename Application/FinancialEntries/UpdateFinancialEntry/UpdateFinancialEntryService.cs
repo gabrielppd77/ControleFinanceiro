@@ -1,17 +1,19 @@
 ﻿using Application.Base;
-using Contracts.Repositories.Base;
+using Contracts.Repositories;
+using Contracts.Repositories.FinancialEntries;
 using Domain.Exceptions;
-using Domain.FinancialEntries;
 
 namespace Application.FinancialEntries.UpdateFinancialEntry;
 
 public class UpdateFinancialEntryService : IServiceHandler<UpdateFinancialEntryRequest, Success>
 {
-    private readonly IBaseRepository<FinancialEntry> _financialEntryRepository;
+    private readonly IFinancialEntryRepository _financialEntryRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateFinancialEntryService(IBaseRepository<FinancialEntry> financialEntryRepository)
+    public UpdateFinancialEntryService(IFinancialEntryRepository financialEntryRepository, IUnitOfWork unitOfWork)
     {
         _financialEntryRepository = financialEntryRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Success> Handle(UpdateFinancialEntryRequest request)
@@ -22,7 +24,7 @@ public class UpdateFinancialEntryService : IServiceHandler<UpdateFinancialEntryR
 
         financialEntry.Update(request.Date, request.Amount, request.TypeId, request.ClassificationId, request.Description);
 
-        await _financialEntryRepository.SaveChanges();
+        await _unitOfWork.SaveChanges();
 
         return Success.Value;
     }

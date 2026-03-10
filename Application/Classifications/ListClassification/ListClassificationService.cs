@@ -1,15 +1,14 @@
 ﻿using Application.Base;
 using Application.Classifications.Common;
-using Contracts.Repositories.Base;
-using Domain.Classifications;
+using Contracts.Repositories.Classifications;
 
 namespace Application.Classifications.ListClassification;
 
 public class ListClassificationService : IServiceHandler<Unit, List<ClassificationResponse>>
 {
-    private readonly IBaseRepository<Classification> _classificationRepository;
+    private readonly IClassificationRepository _classificationRepository;
 
-    public ListClassificationService(IBaseRepository<Classification> classificationRepository)
+    public ListClassificationService(IClassificationRepository classificationRepository)
     {
         _classificationRepository = classificationRepository;
     }

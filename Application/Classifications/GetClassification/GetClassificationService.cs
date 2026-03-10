@@ -1,16 +1,15 @@
 ﻿using Application.Base;
 using Application.Classifications.Common;
-using Contracts.Repositories.Base;
-using Domain.Classifications;
+using Contracts.Repositories.Classifications;
 using Domain.Exceptions;
 
 namespace Application.Classifications.GetClassification;
 
 public class GetClassificationService : IServiceHandler<GetClassificationRequest, ClassificationResponse>
 {
-    private readonly IBaseRepository<Classification> _classificationRepository;
+    private readonly IClassificationRepository _classificationRepository;
 
-    public GetClassificationService(IBaseRepository<Classification> classificationRepository)
+    public GetClassificationService(IClassificationRepository classificationRepository)
     {
         _classificationRepository = classificationRepository;
     }

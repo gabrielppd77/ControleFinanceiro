@@ -1,17 +1,19 @@
 ﻿using Application.Base;
-using Contracts.Repositories.Base;
+using Contracts.Repositories;
+using Contracts.Repositories.Classifications;
 using Domain.Exceptions;
-using Domain.Classifications;
 
 namespace Application.Classifications.DeleteClassification;
 
 public class DeleteClassificationService : IServiceHandler<DeleteClassificationRequest, Success>
 {
-    private readonly IBaseRepository<Classification> _classificationRepository;
+    private readonly IClassificationRepository _classificationRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteClassificationService(IBaseRepository<Classification> classificationRepository)
+    public DeleteClassificationService(IClassificationRepository classificationRepository, IUnitOfWork unitOfWork)
     {
         _classificationRepository = classificationRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Success> Handle(DeleteClassificationRequest request)
@@ -22,7 +24,7 @@ public class DeleteClassificationService : IServiceHandler<DeleteClassificationR
 
         _classificationRepository.Remove(classification);
 
-        await _classificationRepository.SaveChanges();
+        await _unitOfWork.SaveChanges();
 
         return Success.Value;
     }

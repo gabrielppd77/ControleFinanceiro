@@ -37,8 +37,9 @@ public static class DependencyInjection
     {
         app.UseExceptionHandler();
         app.UseHttpsRedirection();
+        app.UseAuthentication();
         app.UseAuthorization();
-        app.MapControllers();
+        app.MapControllers().RequireAuthorization();
         app.UseCors(CorsPolicy.Default);
     }
 }

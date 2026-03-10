@@ -1,15 +1,14 @@
 ﻿using Application.Base;
 using Application.FinancialTypes.Common;
-using Contracts.Repositories.Base;
-using Domain.FinancialTypes;
+using Contracts.Repositories.FinancialTypes;
 
 namespace Application.FinancialTypes.ListFinancialType;
 
 public class ListFinancialTypeService : IServiceHandler<Unit, List<FinancialTypeResponse>>
 {
-    private readonly IBaseRepository<FinancialType> _financialTypeRepository;
+    private readonly IFinancialTypeRepository _financialTypeRepository;
 
-    public ListFinancialTypeService(IBaseRepository<FinancialType> financialTypeRepository)
+    public ListFinancialTypeService(IFinancialTypeRepository financialTypeRepository)
     {
         _financialTypeRepository = financialTypeRepository;
     }

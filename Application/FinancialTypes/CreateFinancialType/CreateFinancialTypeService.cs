@@ -1,16 +1,19 @@
 ﻿using Application.Base;
-using Contracts.Repositories.Base;
+using Contracts.Repositories;
+using Contracts.Repositories.FinancialTypes;
 using Domain.FinancialTypes;
 
 namespace Application.FinancialTypes.CreateFinancialType;
 
 public class CreateFinancialTypeService : IServiceHandler<CreateFinancialTypeRequest, Success>
 {
-    private readonly IBaseRepository<FinancialType> _financialTypeRepository;
+    private readonly IFinancialTypeRepository _financialTypeRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateFinancialTypeService(IBaseRepository<FinancialType> financialTypeRepository)
+    public CreateFinancialTypeService(IFinancialTypeRepository financialTypeRepository, IUnitOfWork unitOfWork)
     {
         _financialTypeRepository = financialTypeRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Success> Handle(CreateFinancialTypeRequest request)
@@ -19,7 +22,7 @@ public class CreateFinancialTypeService : IServiceHandler<CreateFinancialTypeReq
 
         await _financialTypeRepository.Add(financialType);
 
-        await _financialTypeRepository.SaveChanges();
+        await _unitOfWork.SaveChanges();
 
         return Success.Value;
     }

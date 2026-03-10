@@ -1,17 +1,19 @@
 ﻿using Application.Base;
-using Contracts.Repositories.Base;
+using Contracts.Repositories;
+using Contracts.Repositories.FinancialTypes;
 using Domain.Exceptions;
-using Domain.FinancialTypes;
 
 namespace Application.FinancialTypes.DeleteFinancialType;
 
 public class DeleteFinancialTypeService : IServiceHandler<DeleteFinancialTypeRequest, Success>
 {
-    private readonly IBaseRepository<FinancialType> _financialTypeRepository;
+    private readonly IFinancialTypeRepository _financialTypeRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteFinancialTypeService(IBaseRepository<FinancialType> financialTypeRepository)
+    public DeleteFinancialTypeService(IFinancialTypeRepository financialTypeRepository, IUnitOfWork unitOfWork)
     {
         _financialTypeRepository = financialTypeRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Success> Handle(DeleteFinancialTypeRequest request)
@@ -22,7 +24,7 @@ public class DeleteFinancialTypeService : IServiceHandler<DeleteFinancialTypeReq
 
         _financialTypeRepository.Remove(financialType);
 
-        await _financialTypeRepository.SaveChanges();
+        await _unitOfWork.SaveChanges();
 
         return Success.Value;
     }

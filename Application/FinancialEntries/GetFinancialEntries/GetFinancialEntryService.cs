@@ -1,15 +1,14 @@
 ﻿using Application.Base;
-using Contracts.Repositories.Base;
+using Contracts.Repositories.FinancialEntries;
 using Domain.Exceptions;
-using Domain.FinancialEntries;
 
 namespace Application.FinancialEntries.GetFinancialEntries;
 
 public class GetFinancialEntryService : IServiceHandler<GetFinancialEntryRequest, GetFinancialEntryResponse>
 {
-    private readonly IBaseRepository<FinancialEntry> _financialEntryRepository;
+    private readonly IFinancialEntryRepository _financialEntryRepository;
 
-    public GetFinancialEntryService(IBaseRepository<FinancialEntry> financialEntryRepository)
+    public GetFinancialEntryService(IFinancialEntryRepository financialEntryRepository)
     {
         _financialEntryRepository = financialEntryRepository;
     }
