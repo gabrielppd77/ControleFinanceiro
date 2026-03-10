@@ -1,5 +1,6 @@
 ﻿using Application.Base;
 using Application.Dashboards.GetStatisticsMonth.Response;
+using Contracts.Authentications;
 using Contracts.Repositories.Classifications;
 using Contracts.Repositories.FinancialEntries;
 using Contracts.Repositories.FinancialTypes;
@@ -11,23 +12,28 @@ public class GetStatisticMonthService : IServiceHandler<GetStatisticMonthRequest
     private readonly IFinancialEntryRepository _financialEntryRepository;
     private readonly IFinancialTypeRepository _financialTypeRepository;
     private readonly IClassificationRepository _classificationRepository;
+    private readonly IUserAuthenticated _userAuthenticated;
 
     public GetStatisticMonthService(
         IFinancialEntryRepository financialEntryRepository,
         IFinancialTypeRepository financialTypeRepository,
-        IClassificationRepository classificationRepository)
+        IClassificationRepository classificationRepository,
+        IUserAuthenticated userAuthenticated)
     {
         _financialEntryRepository = financialEntryRepository;
         _financialTypeRepository = financialTypeRepository;
         _classificationRepository = classificationRepository;
+        _userAuthenticated = userAuthenticated;
     }
 
     public async Task<GetStatisticMonthResponse> Handle(GetStatisticMonthRequest request)
     {
-        var financialTypesData = await _financialTypeRepository.GetAll();
-        var classificationsData = await _classificationRepository.GetAll();
-        var financialEntriesMonth = await _financialEntryRepository.GetEntriesOfMonth(request.Date);
-        var classificationsOfYear = await _financialEntryRepository.GetChartDataOfYear(request.Date);
+        var userId = _userAuthenticated.GetUserId();
+
+        var financialTypesData = await _financialTypeRepository.GetAll(userId);
+        var classificationsData = await _classificationRepository.GetAll(userId);
+        var financialEntriesMonth = await _financialEntryRepository.GetEntriesOfMonth(request.Date, userId);
+        var classificationsOfYear = await _financialEntryRepository.GetChartDataOfYear(request.Date, userId);
 
         var financialTypesResponse = new List<GetStatisticMonthItemResponse>();
         var classificationsResponse = new List<GetStatisticMonthItemResponse>();

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database.Repositories.FinancialEntries;
 
-public class FinancialEntryRepository :  IFinancialEntryRepository
+public class FinancialEntryRepository : IFinancialEntryRepository
 {
     private ApplicationDbContext _context;
 
@@ -16,24 +16,30 @@ public class FinancialEntryRepository :  IFinancialEntryRepository
         _context = context;
     }
 
-    public async Task<List<FinancialEntry>> GetAllToList()
-    {
-        return await _context.FinancialEntries.Include(x => x.Type).Include(x => x.Classification).ToListAsync();
-    }
-
-    public async Task<List<FinancialEntry>> GetEntriesOfMonth(DateTime date)
+    public async Task<List<FinancialEntry>> GetAll(Guid userId)
     {
         return await _context.FinancialEntries
+            .Where(x => x.UserId == userId)
+            .Include(x => x.Type)
+            .Include(x => x.Classification)
+            .ToListAsync();
+    }
+
+    public async Task<List<FinancialEntry>> GetEntriesOfMonth(DateTime date, Guid userId)
+    {
+        return await _context.FinancialEntries
+            .Where(x => x.UserId == userId)
             .Where(x => x.Date.Month == date.Month)
             .Where(x => x.Date.Year == date.Year)
             .ToListAsync();
     }
 
-    public async Task<List<ChartDataOfYearDto>> GetChartDataOfYear(DateTime date)
+    public async Task<List<ChartDataOfYearDto>> GetChartDataOfYear(DateTime date, Guid userId)
     {
         var year = date.Year;
 
         var result = await _context.FinancialEntries
+            .Where(x => x.UserId == userId)
             .Where(x => x.Date.Year == year)
             .GroupBy(x => new
             {
@@ -51,8 +57,8 @@ public class FinancialEntryRepository :  IFinancialEntryRepository
 
         return result
             .Select(x => new ChartDataOfYearDto(
-                CultureInfo.GetCultureInfo("pt-BR").DateTimeFormat.GetAbbreviatedMonthName(x.Month), 
-                x.Label, 
+                CultureInfo.GetCultureInfo("pt-BR").DateTimeFormat.GetAbbreviatedMonthName(x.Month),
+                x.Label,
                 x.Value))
             .ToList();
     }

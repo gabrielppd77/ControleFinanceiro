@@ -12,9 +12,10 @@ public class FinancialType : Entity
 
     protected FinancialType() { }
 
-    public FinancialType(string name)
+    public FinancialType(string name, Guid userId)
     {
         Name = name;
+        UserId = userId;
     }
 
     public void Update(string name)

@@ -15,13 +15,15 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
+        services.AddSingleton<IUserAuthenticated, UserAuthenticated>();
+
         var jwtSettings = configuration
             .GetRequiredSection(JwtSettings.SectionName)
             .Get<JwtSettings>()!;
 
         services.AddSingleton(Options.Create(jwtSettings));
-        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-        services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
         services
             .AddAuthentication(x =>
@@ -44,51 +46,25 @@ public static class DependencyInjection
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
                     NameClaimType = JwtRegisteredClaimNames.Name
                 };
-
                 x.Events = new JwtBearerEvents
                 {
-                    OnAuthenticationFailed = context =>
+                    OnChallenge = async context =>
                     {
-                        Console.WriteLine("Token inválido: " + context.Exception.Message);
-                        return Task.CompletedTask;
-                    },
+                        context.HandleResponse();
 
-                    OnTokenValidated = context =>
-                    {
-                        Console.WriteLine("Autenticado: " + context.Principal.Identity.IsAuthenticated);
-                        Console.WriteLine("Claims:");
-
-                        foreach (var claim in context.Principal.Claims)
+                        var problemDetails = new ProblemDetails
                         {
-                            Console.WriteLine($"{claim.Type} : {claim.Value}");
-                        }
-                        return Task.CompletedTask;
+                            Status = StatusCodes.Status401Unauthorized,
+                            Type = "https://datatracker.ietf.org/doc/html/rfc7235#section-3.1",
+                            Title = "Authentication failed",
+                            Detail = context.ErrorDescription,
+                        };
+                        context.Response.StatusCode = problemDetails.Status.Value;
+                        context.Response.ContentType = "application/json";
+                        context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+
+                        await context.Response.WriteAsJsonAsync(problemDetails);
                     },
-
-                    OnChallenge = context =>
-                    {
-                        Console.WriteLine("Challenge error: " + context.Error);
-                        Console.WriteLine("Description: " + context.ErrorDescription);
-                        return Task.CompletedTask;
-                    }
-
-                    //OnChallenge = async context =>
-                    //{
-                    //    context.HandleResponse();
-
-                    //    var problemDetails = new ProblemDetails
-                    //    {
-                    //        Status = StatusCodes.Status401Unauthorized,
-                    //        Type = "https://datatracker.ietf.org/doc/html/rfc7235#section-3.1",
-                    //        Title = "Authentication failed",
-                    //        Detail = context.ErrorDescription,
-                    //    };
-                    //    context.Response.StatusCode = problemDetails.Status.Value;
-                    //    context.Response.ContentType = "application/json";
-                    //    context.Response.Headers["Access-Control-Allow-Origin"] = "*";
-
-                    //    await context.Response.WriteAsJsonAsync(problemDetails);
-                    //},
                 };
             });
 

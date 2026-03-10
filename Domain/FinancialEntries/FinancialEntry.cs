@@ -20,13 +20,14 @@ public class FinancialEntry : Entity
 
     protected FinancialEntry() { }
 
-    public FinancialEntry(DateTime date, decimal amount, Guid typeId, Guid classificationId, string? description)
+    public FinancialEntry(DateTime date, decimal amount, Guid typeId, Guid classificationId, string? description, Guid userId)
     {
         Date = date;
         Amount = amount;
         TypeId = typeId;
         ClassificationId = classificationId;
         Description = description;
+        UserId = userId;
     }
 
     public void Update(DateTime date, decimal amount, Guid typeId, Guid classificationId, string? description)

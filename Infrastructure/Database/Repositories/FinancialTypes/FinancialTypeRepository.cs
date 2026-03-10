@@ -20,9 +20,12 @@ public class FinancialTypeRepository : IFinancialTypeRepository
         await _context.FinancialTypes.AddAsync(financialType);
     }
 
-    public async Task<List<FinancialType>> GetAll()
+    public async Task<List<FinancialType>> GetAll(Guid userId)
     {
-        return await _context.FinancialTypes.OrderBy(x => x.Name).ToListAsync();
+        return await _context.FinancialTypes
+            .Where(x => x.UserId == userId)
+            .OrderBy(x => x.Name)
+            .ToListAsync();
     }
 
     public async Task<FinancialType?> GetById(Guid id)

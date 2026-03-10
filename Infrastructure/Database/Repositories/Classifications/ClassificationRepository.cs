@@ -19,9 +19,12 @@ public class ClassificationRepository : IClassificationRepository
         await _context.Classifications.AddAsync(classification);
     }
 
-    public async Task<List<Classification>> GetAll()
+    public async Task<List<Classification>> GetAll(Guid userId)
     {
-        return await _context.Classifications.OrderBy(x => x.Name).ToListAsync();
+        return await _context.Classifications
+            .Where(x => x.UserId == userId)
+            .OrderBy(x => x.Name)
+            .ToListAsync();
     }
 
     public async Task<Classification?> GetById(Guid id)

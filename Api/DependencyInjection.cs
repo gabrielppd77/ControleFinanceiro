@@ -8,6 +8,7 @@ public static class DependencyInjection
     public static void AddApi(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers();
+        services.AddHttpContextAccessor();
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
         services.AddCorsPolicy(configuration);

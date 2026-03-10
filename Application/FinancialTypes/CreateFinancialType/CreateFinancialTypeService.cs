@@ -1,4 +1,5 @@
 ﻿using Application.Base;
+using Contracts.Authentications;
 using Contracts.Repositories;
 using Contracts.Repositories.FinancialTypes;
 using Domain.FinancialTypes;
@@ -9,16 +10,20 @@ public class CreateFinancialTypeService : IServiceHandler<CreateFinancialTypeReq
 {
     private readonly IFinancialTypeRepository _financialTypeRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserAuthenticated _userAuthenticated;
 
-    public CreateFinancialTypeService(IFinancialTypeRepository financialTypeRepository, IUnitOfWork unitOfWork)
+    public CreateFinancialTypeService(IFinancialTypeRepository financialTypeRepository, IUnitOfWork unitOfWork, IUserAuthenticated userAuthenticated)
     {
         _financialTypeRepository = financialTypeRepository;
         _unitOfWork = unitOfWork;
+        _userAuthenticated = userAuthenticated;
     }
 
     public async Task<Success> Handle(CreateFinancialTypeRequest request)
     {
-        var financialType = new FinancialType(request.Name);
+        var userId = _userAuthenticated.GetUserId();
+
+        var financialType = new FinancialType(request.Name, userId);
 
         await _financialTypeRepository.Add(financialType);
 

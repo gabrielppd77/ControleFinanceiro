@@ -12,9 +12,10 @@ public class Classification : Entity
 
     protected Classification() { }
 
-    public Classification(string name)
+    public Classification(string name, Guid userId)
     {
         Name = name;
+        UserId = userId;
     }
 
     public void Update(string name)
