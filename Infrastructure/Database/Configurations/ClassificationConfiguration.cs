@@ -9,5 +9,11 @@ internal sealed class ClassificationConfiguration : IEntityTypeConfiguration<Cla
     public void Configure(EntityTypeBuilder<Classification> builder)
     {
         builder.HasKey(x => x.Id);
+
+        builder
+            .HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

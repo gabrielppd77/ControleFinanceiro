@@ -1,6 +1,7 @@
 ﻿using Domain.Base;
 using Domain.Classifications;
 using Domain.FinancialTypes;
+using Domain.Users;
 
 namespace Domain.FinancialEntries;
 
@@ -8,10 +9,12 @@ public class FinancialEntry : Entity
 {
     public DateTime Date { get; protected set; }
     public decimal Amount { get; protected set; }
+    public string? Description { get; protected set; }
+    public Guid UserId { get; protected set; }
     public Guid TypeId { get; protected set; }
     public Guid ClassificationId { get; protected set; }
-    public string? Description { get; protected set; }
 
+    public User User { get; protected set; }
     public FinancialType Type { get; protected set; }
     public Classification Classification { get; protected set; }
 

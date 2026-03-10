@@ -11,6 +11,12 @@ internal sealed class FinancialEntryConfiguration : IEntityTypeConfiguration<Fin
         builder.HasKey(x => x.Id);
 
         builder
+            .HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder
             .HasOne(x => x.Type)
             .WithMany()
             .HasForeignKey(x => x.TypeId)

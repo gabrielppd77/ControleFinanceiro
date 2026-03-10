@@ -9,5 +9,11 @@ internal sealed class FinancialTypeConfiguration : IEntityTypeConfiguration<Fina
     public void Configure(EntityTypeBuilder<FinancialType> builder)
     {
         builder.HasKey(x => x.Id);
+
+        builder
+            .HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
