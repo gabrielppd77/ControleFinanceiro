@@ -31,6 +31,7 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .Where(x => filter.ClassificationId == null || x.ClassificationId == filter.ClassificationId)
             .Include(x => x.Type)
             .Include(x => x.Classification)
+            .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
     }
 

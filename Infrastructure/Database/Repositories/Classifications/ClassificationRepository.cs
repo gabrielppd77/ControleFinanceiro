@@ -23,7 +23,7 @@ public class ClassificationRepository : IClassificationRepository
     {
         return await _context.Classifications
             .Where(x => x.UserId == userId)
-            .OrderBy(x => x.Name)
+            .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
     }
 

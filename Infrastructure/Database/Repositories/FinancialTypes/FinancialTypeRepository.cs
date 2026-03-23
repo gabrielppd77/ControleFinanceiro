@@ -24,7 +24,7 @@ public class FinancialTypeRepository : IFinancialTypeRepository
     {
         return await _context.FinancialTypes
             .Where(x => x.UserId == userId)
-            .OrderBy(x => x.Name)
+            .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
     }
 
