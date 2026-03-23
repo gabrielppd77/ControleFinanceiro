@@ -1,10 +1,11 @@
 ﻿using Application.Base;
 using Contracts.Authentications;
 using Contracts.Repositories.FinancialEntries;
+using Contracts.Repositories.FinancialEntries.Dtos;
 
 namespace Application.FinancialEntries.ListFinancialEntry;
 
-public class ListFinancialEntryService : IServiceHandler<Unit, List<ListFinancialEntryResponse>>
+public class ListFinancialEntryService : IServiceHandler<FinancialEntryFilterDto, List<ListFinancialEntryResponse>>
 {
     private readonly IFinancialEntryRepository _financialEntryRepository;
     private readonly IUserAuthenticated _userAuthenticated;
@@ -15,11 +16,11 @@ public class ListFinancialEntryService : IServiceHandler<Unit, List<ListFinancia
         _userAuthenticated = userAuthenticated;
     }
 
-    public async Task<List<ListFinancialEntryResponse>> Handle(Unit request)
+    public async Task<List<ListFinancialEntryResponse>> Handle(FinancialEntryFilterDto request)
     {
         var userId = _userAuthenticated.GetUserId();
 
-        var financialEntrys = await _financialEntryRepository.GetAll(userId);
+        var financialEntrys = await _financialEntryRepository.GetAll(userId, request);
 
         return financialEntrys
             .Select(x => new ListFinancialEntryResponse(

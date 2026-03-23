@@ -5,6 +5,7 @@ using Application.FinancialEntries.DeleteFinancialEntry;
 using Application.FinancialEntries.GetFinancialEntries;
 using Application.FinancialEntries.ListFinancialEntry;
 using Application.FinancialEntries.UpdateFinancialEntry;
+using Contracts.Repositories.FinancialEntries.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -33,10 +34,10 @@ public class FinancialEntriesController : ApiController
         return Ok();
     }
 
-    [HttpGet]
-    public async Task<IActionResult> List(IServiceHandler<Unit, List<ListFinancialEntryResponse>> service)
+    [HttpPost("List")]
+    public async Task<IActionResult> List(IServiceHandler<FinancialEntryFilterDto, List<ListFinancialEntryResponse>> service, FinancialEntryFilterDto request)
     {
-        var response = await service.Handle(Unit.Value);
+        var response = await service.Handle(request);
         return Ok(response);
     }
 

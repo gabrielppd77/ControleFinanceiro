@@ -16,10 +16,19 @@ public class FinancialEntryRepository : IFinancialEntryRepository
         _context = context;
     }
 
-    public async Task<List<FinancialEntry>> GetAll(Guid userId)
+    public async Task<List<FinancialEntry>> GetAll(Guid userId, FinancialEntryFilterDto filter)
     {
+        var search = filter.SearchText == null ? null : filter.SearchText.Trim();
+
         return await _context.FinancialEntries
             .Where(x => x.UserId == userId)
+            .Where(x => filter.InitialDate == null || x.Date >= filter.InitialDate)
+            .Where(x => filter.FinalDate == null || x.Date <= filter.FinalDate)
+            .Where(x => filter.InitialAmount == null || x.Amount >= filter.InitialAmount)
+            .Where(x => filter.FinalAmount == null || x.Amount <= filter.FinalAmount)
+            .Where(x => search == null || x.Description == null || EF.Functions.ILike(x.Description, $"%{search}%"))
+            .Where(x => filter.TypeId == null || x.TypeId == filter.TypeId)
+            .Where(x => filter.ClassificationId == null || x.ClassificationId == filter.ClassificationId)
             .Include(x => x.Type)
             .Include(x => x.Classification)
             .ToListAsync();
