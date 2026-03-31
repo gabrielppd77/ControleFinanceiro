@@ -12,14 +12,11 @@ public static class InfrastructureExtensions
 
     public static void UseApplyMigrations(this WebApplication app)
     {
-        if (app.Environment.IsDevelopment())
-        {
-            using IServiceScope scope = app.Services.CreateScope();
+        using IServiceScope scope = app.Services.CreateScope();
 
-            using ApplicationDbContext dbContext =
-                scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        using ApplicationDbContext dbContext =
+            scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            dbContext.Database.Migrate();
-        }
+        dbContext.Database.Migrate();
     }
 }
