@@ -11,4 +11,5 @@ public interface IFinancialEntryRepository
     Task Add(FinancialEntry financialEntry);
     Task<FinancialEntry?> GetById(Guid id);
     void Remove(FinancialEntry financialEntry);
+    Task AddRange(List<FinancialEntry> financialEntries);
 }

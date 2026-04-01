@@ -87,4 +87,9 @@ public class FinancialEntryRepository : IFinancialEntryRepository
     {
         _context.FinancialEntries.Remove(financialEntry);
     }
+
+    public async Task AddRange(List<FinancialEntry> financialEntries)
+    {
+        await _context.FinancialEntries.AddRangeAsync(financialEntries);
+    }
 }

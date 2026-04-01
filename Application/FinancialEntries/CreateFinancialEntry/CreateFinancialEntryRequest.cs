@@ -1,3 +1,9 @@
 ﻿namespace Application.FinancialEntries.CreateFinancialEntry;
 
-public record CreateFinancialEntryRequest(DateTime Date, decimal Amount, Guid TypeId, Guid ClassificationId, string? Description);
+public record CreateFinancialEntryRequest(
+    DateTime? ReplicateUntilDate, 
+    DateTime Date, 
+    decimal Amount, 
+    Guid TypeId, 
+    Guid ClassificationId, 
+    string? Description);
