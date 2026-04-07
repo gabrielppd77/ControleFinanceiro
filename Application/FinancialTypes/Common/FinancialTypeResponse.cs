@@ -1,3 +1,3 @@
 ﻿namespace Application.FinancialTypes.Common;
 
-public record FinancialTypeResponse(Guid Id, string Name);
+public record FinancialTypeResponse(Guid Id, string Name, string? Color);

@@ -29,8 +29,10 @@ public class ListFinancialEntryService : IServiceHandler<FinancialEntryFilterDto
                 x.Amount,
                 x.TypeId,
                 x.Type.Name,
+                x.Type.Color,
                 x.ClassificationId,
                 x.Classification.Name,
+                x.Classification.Color,
                 x.Description))
             .ToList();
     }

@@ -23,7 +23,7 @@ public class CreateClassificationService : IServiceHandler<CreateClassificationR
     {
         var userId = _userAuthenticated.GetUserId();
 
-        var classification = new Classification(request.Name, userId);
+        var classification = new Classification(request.Name, request.Color, userId);
 
         await _classificationRepository.Add(classification);
 

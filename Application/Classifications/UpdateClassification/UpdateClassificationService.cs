@@ -22,7 +22,7 @@ public class UpdateClassificationService : IServiceHandler<UpdateClassificationR
 
         if (classification is null) throw new NotFoundException("Não foi possível encontrar a Classificação");
 
-        classification.Update(request.Name);
+        classification.Update(request.Name, request.Color);
 
         await _unitOfWork.SaveChanges();
 

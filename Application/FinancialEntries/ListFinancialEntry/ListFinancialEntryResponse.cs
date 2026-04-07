@@ -6,6 +6,8 @@ public record ListFinancialEntryResponse(
     decimal Amount,
     Guid TypeId,
     string TypeName,
+    string? TypeColor,
     Guid ClassificationId,
     string ClassificationName,
+    string? ClassificationColor,
     string? Description);

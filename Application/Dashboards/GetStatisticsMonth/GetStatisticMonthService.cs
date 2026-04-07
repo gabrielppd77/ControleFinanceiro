@@ -41,13 +41,13 @@ public class GetStatisticMonthService : IServiceHandler<GetStatisticMonthRequest
         foreach (var financialType in financialTypesData)
         {
             var sumFinancialType = financialEntriesMonth.Where(x => x.TypeId == financialType.Id).Sum(x => x.Amount);
-            financialTypesResponse.Add(new GetStatisticMonthItemResponse(financialType.Id, financialType.Name, sumFinancialType));
+            financialTypesResponse.Add(new GetStatisticMonthItemResponse(financialType.Id, financialType.Name, financialType.Color, sumFinancialType));
         }
 
         foreach (var classification in classificationsData)
         {
             var sumClassification = financialEntriesMonth.Where(x => x.ClassificationId == classification.Id).Sum(x => x.Amount);
-            classificationsResponse.Add(new GetStatisticMonthItemResponse(classification.Id, classification.Name, sumClassification));
+            classificationsResponse.Add(new GetStatisticMonthItemResponse(classification.Id, classification.Name, classification.Color, sumClassification));
         }
 
         financialTypesResponse = financialTypesResponse.OrderByDescending(x => x.Value).ToList();

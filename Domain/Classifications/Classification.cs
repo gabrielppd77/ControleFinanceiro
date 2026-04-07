@@ -6,20 +6,23 @@ namespace Domain.Classifications;
 public class Classification : Entity
 {
     public string Name { get; protected set; }
+    public string? Color { get; protected set; }
     public Guid UserId { get; protected set; }
 
     public User User { get; protected set; }
 
     protected Classification() { }
 
-    public Classification(string name, Guid userId)
+    public Classification(string name, string? color, Guid userId)
     {
         Name = name;
+        Color = color;
         UserId = userId;
     }
 
-    public void Update(string name)
+    public void Update(string name, string? color)
     {
         Name = name;
+        Color = color;
     }
 }

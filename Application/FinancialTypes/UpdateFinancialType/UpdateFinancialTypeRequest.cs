@@ -1,3 +1,3 @@
 ﻿namespace Application.FinancialTypes.UpdateFinancialType;
 
-public record UpdateFinancialTypeRequest(Guid Id, string Name);
+public record UpdateFinancialTypeRequest(Guid Id, string Name, string? Color);

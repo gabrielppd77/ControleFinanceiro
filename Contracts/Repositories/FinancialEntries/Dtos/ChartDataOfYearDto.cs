@@ -3,4 +3,5 @@
 public record ChartDataOfYearDto(
     string Month, 
     string Label, 
+    string? Color, 
     decimal Value);

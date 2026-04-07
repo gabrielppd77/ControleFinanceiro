@@ -20,6 +20,6 @@ public class GetFinancialTypeService : IServiceHandler<GetFinancialTypeRequest, 
 
         if (financialType is null) throw new NotFoundException("Não foi possível encontrar um Tipo");
 
-        return new FinancialTypeResponse(financialType.Id, financialType.Name);
+        return new FinancialTypeResponse(financialType.Id, financialType.Name, financialType.Color);
     }
 }

@@ -54,12 +54,14 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .GroupBy(x => new
             {
                 Month = x.Date.Month,
-                Classification = x.Classification.Name
+                Classification = x.Classification.Name,
+                Color = x.Classification.Color
             })
             .Select(g => new
             {
                 g.Key.Month,
                 Label = g.Key.Classification,
+                Color = g.Key.Color,
                 Value = g.Sum(x => x.Amount)
             })
             .OrderBy(x => x.Month)
@@ -69,6 +71,7 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .Select(x => new ChartDataOfYearDto(
                 CultureInfo.GetCultureInfo("pt-BR").DateTimeFormat.GetAbbreviatedMonthName(x.Month),
                 x.Label,
+                x.Color,
                 x.Value))
             .ToList();
     }

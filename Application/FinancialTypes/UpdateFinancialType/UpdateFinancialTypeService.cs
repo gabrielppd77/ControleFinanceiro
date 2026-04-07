@@ -22,7 +22,7 @@ public class UpdateFinancialTypeService : IServiceHandler<UpdateFinancialTypeReq
 
         if (financialType is null) throw new NotFoundException("Não foi possível encontrar um Tipo");
 
-        financialType.Update(request.Name);
+        financialType.Update(request.Name, request.Color);
 
         await _unitOfWork.SaveChanges();
 

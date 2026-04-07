@@ -22,6 +22,6 @@ public class ListClassificationService : IServiceHandler<Unit, List<Classificati
 
         var classifications = await _classificationRepository.GetAll(userId);
 
-        return classifications.Select(x => new ClassificationResponse(x.Id, x.Name)).ToList();
+        return classifications.Select(x => new ClassificationResponse(x.Id, x.Name, x.Color)).ToList();
     }
 }

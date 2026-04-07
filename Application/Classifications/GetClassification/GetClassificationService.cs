@@ -20,6 +20,6 @@ public class GetClassificationService : IServiceHandler<GetClassificationRequest
 
         if (classification is null) throw new NotFoundException("Não foi possível encontrar a Classificação");
 
-        return new ClassificationResponse(classification.Id, classification.Name);
+        return new ClassificationResponse(classification.Id, classification.Name, classification.Color);
     }
 }

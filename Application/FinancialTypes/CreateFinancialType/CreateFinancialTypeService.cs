@@ -23,7 +23,7 @@ public class CreateFinancialTypeService : IServiceHandler<CreateFinancialTypeReq
     {
         var userId = _userAuthenticated.GetUserId();
 
-        var financialType = new FinancialType(request.Name, userId);
+        var financialType = new FinancialType(request.Name, request.Color, userId);
 
         await _financialTypeRepository.Add(financialType);
 

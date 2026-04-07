@@ -22,6 +22,6 @@ public class ListFinancialTypeService : IServiceHandler<Unit, List<FinancialType
 
         var financialTypes = await _financialTypeRepository.GetAll(userId);
 
-        return financialTypes.Select(x => new FinancialTypeResponse(x.Id, x.Name)).ToList();
+        return financialTypes.Select(x => new FinancialTypeResponse(x.Id, x.Name, x.Color)).ToList();
     }
 }

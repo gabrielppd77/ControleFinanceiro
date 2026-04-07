@@ -1,3 +1,3 @@
 ﻿namespace Application.Classifications.CreateClassification;
 
-public record CreateClassificationRequest(string Name);
+public record CreateClassificationRequest(string Name, string? Color);
