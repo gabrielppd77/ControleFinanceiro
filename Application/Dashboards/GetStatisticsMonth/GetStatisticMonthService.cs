@@ -1,9 +1,9 @@
 ﻿using Application.Base;
 using Application.Dashboards.GetStatisticsMonth.Response;
 using Contracts.Authentications;
-using Contracts.Repositories.Classifications;
 using Contracts.Repositories.FinancialEntries;
 using Contracts.Repositories.FinancialTypes;
+using Domain.FinancialEntries;
 
 namespace Application.Dashboards.GetStatisticsMonth;
 
@@ -11,18 +11,15 @@ public class GetStatisticMonthService : IServiceHandler<GetStatisticMonthRequest
 {
     private readonly IFinancialEntryRepository _financialEntryRepository;
     private readonly IFinancialTypeRepository _financialTypeRepository;
-    private readonly IClassificationRepository _classificationRepository;
     private readonly IUserAuthenticated _userAuthenticated;
 
     public GetStatisticMonthService(
         IFinancialEntryRepository financialEntryRepository,
         IFinancialTypeRepository financialTypeRepository,
-        IClassificationRepository classificationRepository,
         IUserAuthenticated userAuthenticated)
     {
         _financialEntryRepository = financialEntryRepository;
         _financialTypeRepository = financialTypeRepository;
-        _classificationRepository = classificationRepository;
         _userAuthenticated = userAuthenticated;
     }
 
@@ -31,7 +28,7 @@ public class GetStatisticMonthService : IServiceHandler<GetStatisticMonthRequest
         var userId = _userAuthenticated.GetUserId();
 
         var financialTypesData = await _financialTypeRepository.GetAll(userId);
-        var classificationsData = await _classificationRepository.GetAll(userId);
+        var classificationsData = (ClassificationEnum[])Enum.GetValues(typeof(ClassificationEnum));
         var financialEntriesMonth = await _financialEntryRepository.GetEntriesOfMonth(request.Date, userId);
         var classificationsOfYear = await _financialEntryRepository.GetChartDataOfYear(request.Date, userId);
 
@@ -41,13 +38,14 @@ public class GetStatisticMonthService : IServiceHandler<GetStatisticMonthRequest
         foreach (var financialType in financialTypesData)
         {
             var sumFinancialType = financialEntriesMonth.Where(x => x.TypeId == financialType.Id).Sum(x => x.Amount);
-            financialTypesResponse.Add(new GetStatisticMonthItemResponse(financialType.Id, financialType.Name, financialType.Color, sumFinancialType));
+            financialTypesResponse.Add(new GetStatisticMonthItemResponse(financialType.Id.ToString(), financialType.Name, financialType.Color, sumFinancialType));
         }
+
 
         foreach (var classification in classificationsData)
         {
-            var sumClassification = financialEntriesMonth.Where(x => x.ClassificationId == classification.Id).Sum(x => x.Amount);
-            classificationsResponse.Add(new GetStatisticMonthItemResponse(classification.Id, classification.Name, classification.Color, sumClassification));
+            var sumClassification = financialEntriesMonth.Where(x => x.Classification == classification).Sum(x => x.Amount);
+            classificationsResponse.Add(new GetStatisticMonthItemResponse(classification.ToString(), classification.GetName(), classification.GetColor(), sumClassification));
         }
 
         financialTypesResponse = financialTypesResponse.OrderByDescending(x => x.Value).ToList();

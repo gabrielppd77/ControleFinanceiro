@@ -40,10 +40,10 @@ public class CreateFinancialEntryService : IServiceHandler<CreateFinancialEntryR
         var financialEntry = new FinancialEntry(
             request.Date,
             request.Amount,
+            request.Classification, 
+            userId,
             request.TypeId,
-            request.ClassificationId,
-            request.Description,
-            userId);
+            request.Description);
 
         await _financialEntryRepository.Add(financialEntry);
 
@@ -64,10 +64,10 @@ public class CreateFinancialEntryService : IServiceHandler<CreateFinancialEntryR
             financialEntries.Add(new FinancialEntry(
                 currentDate,
                 request.Amount,
+                request.Classification,
+                userId,
                 request.TypeId,
-                request.ClassificationId,
-                request.Description,
-                userId));
+                request.Description));
 
             currentDate = currentDate.AddMonths(1);
         }

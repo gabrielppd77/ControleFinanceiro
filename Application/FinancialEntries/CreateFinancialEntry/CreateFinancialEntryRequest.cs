@@ -1,9 +1,11 @@
-﻿namespace Application.FinancialEntries.CreateFinancialEntry;
+﻿using Domain.FinancialEntries;
+
+namespace Application.FinancialEntries.CreateFinancialEntry;
 
 public record CreateFinancialEntryRequest(
     DateTime? ReplicateUntilDate, 
     DateTime Date, 
     decimal Amount, 
     Guid TypeId, 
-    Guid ClassificationId, 
+    ClassificationEnum Classification, 
     string? Description);

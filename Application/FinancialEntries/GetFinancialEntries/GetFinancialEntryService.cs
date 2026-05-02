@@ -24,7 +24,7 @@ public class GetFinancialEntryService : IServiceHandler<GetFinancialEntryRequest
             financialEntry.Date,
             financialEntry.Amount,
             financialEntry.TypeId,
-            financialEntry.ClassificationId,
+            financialEntry.Classification,
             financialEntry.Description);
     }
 }

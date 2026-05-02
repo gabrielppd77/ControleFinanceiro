@@ -2,6 +2,7 @@
 using Contracts.Authentications;
 using Contracts.Repositories.FinancialEntries;
 using Contracts.Repositories.FinancialEntries.Dtos;
+using Domain.FinancialEntries;
 
 namespace Application.FinancialEntries.ListFinancialEntry;
 
@@ -30,9 +31,9 @@ public class ListFinancialEntryService : IServiceHandler<FinancialEntryFilterDto
                 x.TypeId,
                 x.Type.Name,
                 x.Type.Color,
-                x.ClassificationId,
-                x.Classification.Name,
-                x.Classification.Color,
+                x.Classification,
+                x.Classification.GetName(),
+                x.Classification.GetColor(),
                 x.Description))
             .ToList();
     }

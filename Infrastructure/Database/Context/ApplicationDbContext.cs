@@ -1,5 +1,4 @@
-﻿using Domain.Classifications;
-using Domain.FinancialEntries;
+﻿using Domain.FinancialEntries;
 using Domain.FinancialTypes;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +8,6 @@ namespace Infrastructure.Database.Context;
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<FinancialType> FinancialTypes { get; set; }
-    public DbSet<Classification> Classifications { get; set; }
     public DbSet<FinancialEntry> FinancialEntries { get; set; }
     public DbSet<User> Users { get; set; }
 

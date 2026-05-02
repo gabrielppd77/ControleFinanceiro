@@ -1,4 +1,6 @@
-﻿namespace Application.FinancialEntries.ListFinancialEntry;
+﻿using Domain.FinancialEntries;
+
+namespace Application.FinancialEntries.ListFinancialEntry;
 
 public record ListFinancialEntryResponse(
     Guid Id,
@@ -7,7 +9,7 @@ public record ListFinancialEntryResponse(
     Guid TypeId,
     string TypeName,
     string? TypeColor,
-    Guid ClassificationId,
+    ClassificationEnum Classification,
     string ClassificationName,
     string? ClassificationColor,
     string? Description);

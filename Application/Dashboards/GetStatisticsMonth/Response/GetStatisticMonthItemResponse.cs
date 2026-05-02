@@ -1,7 +1,7 @@
 ﻿namespace Application.Dashboards.GetStatisticsMonth.Response;
 
 public record GetStatisticMonthItemResponse(
-    Guid Id, 
+    string Id, 
     string Label, 
     string? Color, 
     decimal Value);

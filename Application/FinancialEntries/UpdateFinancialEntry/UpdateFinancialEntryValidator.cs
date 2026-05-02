@@ -10,6 +10,6 @@ public class UpdateFinancialEntryValidator : AbstractValidator<UpdateFinancialEn
         RuleFor(x => x.Date).NotEmpty();
         RuleFor(x => x.Amount).NotEmpty().GreaterThan(0);
         RuleFor(x => x.TypeId).NotEmpty();
-        RuleFor(x => x.ClassificationId).NotEmpty();
+        RuleFor(x => x.Classification).IsInEnum();
     }
 }

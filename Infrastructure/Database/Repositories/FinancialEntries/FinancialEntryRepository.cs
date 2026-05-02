@@ -28,7 +28,7 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .Where(x => filter.FinalAmount == null || x.Amount <= filter.FinalAmount)
             .Where(x => search == null || x.Description == null || EF.Functions.ILike(x.Description, $"%{search}%"))
             .Where(x => filter.TypeId == null || x.TypeId == filter.TypeId)
-            .Where(x => filter.ClassificationId == null || x.ClassificationId == filter.ClassificationId)
+            .Where(x => filter.Classification == null || x.Classification == filter.Classification)
             .Include(x => x.Type)
             .Include(x => x.Classification)
             .OrderByDescending(x => x.CreatedAt)
@@ -54,8 +54,8 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .GroupBy(x => new
             {
                 Month = x.Date.Month,
-                Classification = x.Classification.Name,
-                Color = x.Classification.Color
+                Classification = x.Classification.GetName(),
+                Color = x.Classification.GetColor()
             })
             .Select(g => new
             {

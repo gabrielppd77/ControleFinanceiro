@@ -1,4 +1,6 @@
-﻿namespace Contracts.Repositories.FinancialEntries.Dtos;
+﻿using Domain.FinancialEntries;
+
+namespace Contracts.Repositories.FinancialEntries.Dtos;
 
 public record FinancialEntryFilterDto(
     DateTime? InitialDate,
@@ -7,4 +9,4 @@ public record FinancialEntryFilterDto(
     decimal? FinalAmount,
     string? SearchText,
     Guid? TypeId,
-    Guid? ClassificationId);
+    ClassificationEnum? Classification);
