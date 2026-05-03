@@ -30,7 +30,6 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .Where(x => filter.TypeId == null || x.TypeId == filter.TypeId)
             .Where(x => filter.Classification == null || x.Classification == filter.Classification)
             .Include(x => x.Type)
-            .Include(x => x.Classification)
             .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
     }
@@ -54,14 +53,12 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .GroupBy(x => new
             {
                 Month = x.Date.Month,
-                Classification = x.Classification.GetName(),
-                Color = x.Classification.GetColor()
+                Classification = x.Classification,
             })
             .Select(g => new
             {
                 g.Key.Month,
-                Label = g.Key.Classification,
-                Color = g.Key.Color,
+                Classification = g.Key.Classification,
                 Value = g.Sum(x => x.Amount)
             })
             .OrderBy(x => x.Month)
@@ -70,8 +67,8 @@ public class FinancialEntryRepository : IFinancialEntryRepository
         return result
             .Select(x => new ChartDataOfYearDto(
                 CultureInfo.GetCultureInfo("pt-BR").DateTimeFormat.GetAbbreviatedMonthName(x.Month),
-                x.Label,
-                x.Color,
+                x.Classification.GetName(),
+                x.Classification.GetColor(),
                 x.Value))
             .ToList();
     }

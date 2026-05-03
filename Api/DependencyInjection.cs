@@ -1,4 +1,5 @@
-﻿using Api.Configurations.GlobalException;
+﻿using System.Text.Json.Serialization;
+using Api.Configurations.GlobalException;
 using Api.CorsPolicies;
 
 namespace Api;
@@ -7,7 +8,8 @@ public static class DependencyInjection
 {
     public static void AddApi(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddControllers();
+        services.AddControllers()
+            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
         services.AddHttpContextAccessor();
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
