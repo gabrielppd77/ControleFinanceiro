@@ -29,6 +29,7 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .Where(x => search == null || x.Description == null || EF.Functions.ILike(x.Description, $"%{search}%"))
             .Where(x => filter.TypeId == null || x.TypeId == filter.TypeId)
             .Where(x => filter.Classification == null || x.Classification == filter.Classification)
+            .Where(x => filter.IsConfirmed == null || x.TypeId.HasValue == filter.IsConfirmed)
             .Include(x => x.Type)
             .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();

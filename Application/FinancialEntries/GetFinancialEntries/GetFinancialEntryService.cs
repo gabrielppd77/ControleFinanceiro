@@ -25,6 +25,8 @@ public class GetFinancialEntryService : IServiceHandler<GetFinancialEntryRequest
             financialEntry.Amount,
             financialEntry.TypeId,
             financialEntry.Classification,
-            financialEntry.Description);
+            financialEntry.Description,
+            financialEntry.DatePayment,
+            financialEntry.IsConfirmed);
     }
 }

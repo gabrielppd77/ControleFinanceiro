@@ -29,12 +29,13 @@ public class ListFinancialEntryService : IServiceHandler<FinancialEntryFilterDto
                 x.Date,
                 x.Amount,
                 x.TypeId,
-                x.Type.Name,
-                x.Type.Color,
+                x.Type?.Name,
+                x.Type?.Color,
                 x.Classification,
                 x.Classification.GetName(),
                 x.Classification.GetColor(),
-                x.Description))
+                x.Description,
+                x.IsConfirmed))
             .ToList();
     }
 }

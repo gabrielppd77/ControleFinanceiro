@@ -4,8 +4,10 @@ namespace Application.FinancialEntries.GetFinancialEntries;
 
 public record GetFinancialEntryResponse(
     Guid Id,
-    DateTime Date,
+    DateOnly Date,
     decimal Amount,
-    Guid TypeId,
+    Guid? TypeId,
     ClassificationEnum Classification,
-    string? Description);
+    string? Description,
+    DateOnly? DatePayment,
+    bool IsConfirmed);

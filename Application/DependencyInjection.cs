@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Application.Base;
+using Application.Importations;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,5 +19,11 @@ public static class DependencyInjection
             .WithScopedLifetime());
 
         services.Decorate(typeof(IServiceHandler<,>), typeof(ServiceHandlerDecorator<,>));
+
+        services.Scan(scan => scan
+            .FromAssemblies(typeof(ICsvImporter).Assembly)
+            .AddClasses(c => c.AssignableTo<ICsvImporter>())
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
     }
 }

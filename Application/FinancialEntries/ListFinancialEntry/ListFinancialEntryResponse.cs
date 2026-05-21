@@ -4,12 +4,13 @@ namespace Application.FinancialEntries.ListFinancialEntry;
 
 public record ListFinancialEntryResponse(
     Guid Id,
-    DateTime Date,
+    DateOnly Date,
     decimal Amount,
-    Guid TypeId,
-    string TypeName,
+    Guid? TypeId,
+    string? TypeName,
     string? TypeColor,
     ClassificationEnum Classification,
     string ClassificationName,
     string? ClassificationColor,
-    string? Description);
+    string? Description,
+    bool IsConfirmed);

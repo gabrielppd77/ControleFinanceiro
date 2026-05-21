@@ -3,10 +3,11 @@
 namespace Contracts.Repositories.FinancialEntries.Dtos;
 
 public record FinancialEntryFilterDto(
-    DateTime? InitialDate,
-    DateTime? FinalDate,
+    DateOnly? InitialDate,
+    DateOnly? FinalDate,
     decimal? InitialAmount,
     decimal? FinalAmount,
     string? SearchText,
     Guid? TypeId,
-    ClassificationEnum? Classification);
+    ClassificationEnum? Classification,
+    Boolean? IsConfirmed);
