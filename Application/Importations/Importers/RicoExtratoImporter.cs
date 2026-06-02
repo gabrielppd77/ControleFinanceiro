@@ -1,6 +1,7 @@
 using System.Globalization;
 using Application.Importations.Maps;
 using Application.Importations.Templates;
+using Application.Importations.Utils;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Domain.FinancialEntries;

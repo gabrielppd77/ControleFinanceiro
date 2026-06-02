@@ -1,4 +1,4 @@
-namespace Application.Importations.Importers;
+namespace Application.Importations.Utils;
 
 internal static class HeaderMatcher
 {

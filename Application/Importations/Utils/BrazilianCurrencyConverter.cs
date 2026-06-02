@@ -3,7 +3,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 
-namespace Application.Importations.TypeConverters;
+namespace Application.Importations.Utils;
 
 public class BrazilianCurrencyConverter : DecimalConverter
 {
