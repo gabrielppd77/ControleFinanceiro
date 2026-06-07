@@ -22,7 +22,7 @@ public class UpdateFinancialEntryService : IServiceHandler<UpdateFinancialEntryR
 
         if (financialEntry is null) throw new NotFoundException("Não foi possível encontrar o Lançamento Financeiro");
 
-        financialEntry.Update(request.Date, request.Amount, request.Classification, request.TypeId, request.Description, request.DatePayment);
+        financialEntry.Update(request.Date, request.Amount, request.Classification, request.TypeId, request.Description, request.DatePayment, request.AccountId);
 
         await _unitOfWork.SaveChanges();
 

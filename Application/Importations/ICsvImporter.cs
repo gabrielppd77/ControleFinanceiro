@@ -8,5 +8,5 @@ public interface ICsvImporter
 
     string Delimiter { get; }
 
-    List<FinancialEntry> Import(TextReader reader, DateOnly dateFinancialEntry, Guid userId);
+    List<FinancialEntry> Import(TextReader reader, DateOnly dateFinancialEntry, Guid userId, Guid? accountId);
 }

@@ -24,6 +24,7 @@ public class GetFinancialEntryService : IServiceHandler<GetFinancialEntryRequest
             financialEntry.Date,
             financialEntry.Amount,
             financialEntry.TypeId,
+            financialEntry.AccountId,
             financialEntry.Classification,
             financialEntry.Description,
             financialEntry.DatePayment,

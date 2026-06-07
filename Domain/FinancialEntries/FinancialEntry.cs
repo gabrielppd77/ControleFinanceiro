@@ -1,4 +1,5 @@
 ﻿using Domain.Base;
+using Domain.FinancialAccounts;
 using Domain.FinancialTypes;
 using Domain.Users;
 
@@ -15,12 +16,14 @@ public class FinancialEntry : Entity
     public User User { get; protected set; }
     public Guid? TypeId { get; protected set; }
     public FinancialType? Type { get; protected set; }
+    public Guid? AccountId { get; protected set; }
+    public FinancialAccount? Account { get; protected set; }
 
     public bool IsConfirmed => TypeId.HasValue;
 
     protected FinancialEntry() { }
 
-    public FinancialEntry(DateOnly date, decimal amount, ClassificationEnum classification, Guid userId, Guid typeId, string? description, DateOnly? datePayment)
+    public FinancialEntry(DateOnly date, decimal amount, ClassificationEnum classification, Guid userId, Guid typeId, string? description, DateOnly? datePayment, Guid? accountId)
     {
         Date = date;
         Amount = amount;
@@ -29,9 +32,10 @@ public class FinancialEntry : Entity
         TypeId = typeId;
         Description = description;
         DatePayment = datePayment;
+        AccountId = accountId;
     }
 
-    public void Update(DateOnly date, decimal amount, ClassificationEnum classification, Guid typeId, string? description, DateOnly? datePayment)
+    public void Update(DateOnly date, decimal amount, ClassificationEnum classification, Guid typeId, string? description, DateOnly? datePayment, Guid? accountId)
     {
         Date = date;
         Amount = amount;
@@ -39,9 +43,10 @@ public class FinancialEntry : Entity
         TypeId = typeId;
         Description = description;
         DatePayment = datePayment;
+        AccountId = accountId;
     }
 
-    public static FinancialEntry FromImport(DateOnly date, DateOnly datePayment, decimal amount, ClassificationEnum classification, Guid userId, string? description)
+    public static FinancialEntry FromImport(DateOnly date, DateOnly datePayment, decimal amount, ClassificationEnum classification, Guid userId, string? description, Guid? accountId)
     {
         return new FinancialEntry
         {
@@ -51,7 +56,8 @@ public class FinancialEntry : Entity
             Classification = classification,
             UserId = userId,
             TypeId = null,
-            Description = description
+            Description = description,
+            AccountId = accountId
         };
     }
 }

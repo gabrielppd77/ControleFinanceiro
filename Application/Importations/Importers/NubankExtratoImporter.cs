@@ -16,7 +16,7 @@ public sealed class NubankExtratoImporter : ICsvImporter
 
     public bool Matches(string[] headers) => HeaderMatcher.HasAll(headers, ExpectedHeaders);
 
-    public List<FinancialEntry> Import(TextReader reader, DateOnly dateFinancialEntry, Guid userId)
+    public List<FinancialEntry> Import(TextReader reader, DateOnly dateFinancialEntry, Guid userId, Guid? accountId)
     {
         var config = new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = Delimiter };
         using var csv = new CsvReader(reader, config);
@@ -29,7 +29,8 @@ public sealed class NubankExtratoImporter : ICsvImporter
                 amount: Math.Abs(x.Valor),
                 classification: x.Valor < 0 ? ClassificationEnum.Expense : ClassificationEnum.Revenue,
                 userId: userId,
-                description: x.Descricao))
+                description: x.Descricao,
+                accountId: accountId))
             .ToList();
     }
 }

@@ -16,7 +16,7 @@ public sealed class RicoFaturaImporter : ICsvImporter
 
     public bool Matches(string[] headers) => HeaderMatcher.HasAll(headers, ExpectedHeaders);
 
-    public List<FinancialEntry> Import(TextReader reader, DateOnly dateFinancialEntry, Guid userId)
+    public List<FinancialEntry> Import(TextReader reader, DateOnly dateFinancialEntry, Guid userId, Guid? accountId)
     {
         var config = new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = Delimiter };
         using var csv = new CsvReader(reader, config);
@@ -29,7 +29,8 @@ public sealed class RicoFaturaImporter : ICsvImporter
                 amount: Math.Abs(x.Valor),
                 classification: ClassificationEnum.Expense,
                 userId: userId,
-                description: BuildDescription(x)))
+                description: BuildDescription(x),
+                accountId: accountId))
             .ToList();
     }
 

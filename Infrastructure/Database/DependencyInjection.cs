@@ -1,9 +1,11 @@
 ﻿using Contracts.Repositories;
+using Contracts.Repositories.FinancialAccounts;
 using Contracts.Repositories.FinancialEntries;
 using Contracts.Repositories.FinancialTypes;
 using Contracts.Repositories.Users;
 using Infrastructure.Database.Context;
 using Infrastructure.Database.Repositories;
+using Infrastructure.Database.Repositories.FinancialAccounts;
 using Infrastructure.Database.Repositories.FinancialEntries;
 using Infrastructure.Database.Repositories.FinancialTypes;
 using Infrastructure.Database.Repositories.Users;
@@ -30,6 +32,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IFinancialTypeRepository, FinancialTypeRepository>();
+        services.AddScoped<IFinancialAccountRepository, FinancialAccountRepository>();
         services.AddScoped<IFinancialEntryRepository, FinancialEntryRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
     }

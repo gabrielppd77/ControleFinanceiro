@@ -7,6 +7,7 @@ public record GetFinancialEntryResponse(
     DateOnly Date,
     decimal Amount,
     Guid? TypeId,
+    Guid? AccountId,
     ClassificationEnum Classification,
     string? Description,
     DateOnly? DatePayment,

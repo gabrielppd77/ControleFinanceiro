@@ -40,7 +40,7 @@ public class ImportationCSVService : IServiceHandler<ImportationCSVRequest, Impo
 
         memory.Position = 0;
         using var reader = new StreamReader(memory);
-        var entries = importer.Import(reader, request.DateFinancialEntry, userId);
+        var entries = importer.Import(reader, request.DateFinancialEntry, userId, request.AccountId);
 
         if (entries.Count == 0)
             return new ImportationCSVResponse(0, importer.GetType().Name);

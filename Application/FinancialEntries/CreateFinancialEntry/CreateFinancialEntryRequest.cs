@@ -4,9 +4,10 @@ namespace Application.FinancialEntries.CreateFinancialEntry;
 
 public record CreateFinancialEntryRequest(
     DateOnly? ReplicateUntilDate,
-    DateOnly Date, 
-    decimal Amount, 
-    Guid TypeId, 
-    ClassificationEnum Classification, 
+    DateOnly Date,
+    decimal Amount,
+    Guid TypeId,
+    ClassificationEnum Classification,
     string? Description,
-    DateOnly? DatePayment);
+    DateOnly? DatePayment,
+    Guid? AccountId);

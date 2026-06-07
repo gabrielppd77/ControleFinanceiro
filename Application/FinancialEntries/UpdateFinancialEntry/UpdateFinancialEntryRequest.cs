@@ -3,10 +3,11 @@
 namespace Application.FinancialEntries.UpdateFinancialEntry;
 
 public record UpdateFinancialEntryRequest(
-    Guid Id, 
-    DateOnly Date, 
+    Guid Id,
+    DateOnly Date,
     decimal Amount,
-    Guid TypeId, 
-    ClassificationEnum Classification, 
+    Guid TypeId,
+    ClassificationEnum Classification,
     string? Description,
-    DateOnly? DatePayment);
+    DateOnly? DatePayment,
+    Guid? AccountId);

@@ -40,11 +40,12 @@ public class CreateFinancialEntryService : IServiceHandler<CreateFinancialEntryR
         var financialEntry = new FinancialEntry(
             request.Date,
             request.Amount,
-            request.Classification, 
+            request.Classification,
             userId,
             request.TypeId,
             request.Description,
-            request.DatePayment);
+            request.DatePayment,
+            request.AccountId);
 
         await _financialEntryRepository.Add(financialEntry);
 
@@ -69,7 +70,8 @@ public class CreateFinancialEntryService : IServiceHandler<CreateFinancialEntryR
                 userId,
                 request.TypeId,
                 request.Description,
-                request.DatePayment));
+                request.DatePayment,
+                request.AccountId));
 
             currentDate = currentDate.AddMonths(1);
         }
