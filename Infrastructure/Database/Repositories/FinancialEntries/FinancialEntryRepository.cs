@@ -28,9 +28,11 @@ public class FinancialEntryRepository : IFinancialEntryRepository
             .Where(x => filter.FinalAmount == null || x.Amount <= filter.FinalAmount)
             .Where(x => search == null || x.Description == null || EF.Functions.ILike(x.Description, $"%{search}%"))
             .Where(x => filter.TypeId == null || x.TypeId == filter.TypeId)
+            .Where(x => filter.AccountId == null || x.AccountId == filter.AccountId)
             .Where(x => filter.Classification == null || x.Classification == filter.Classification)
             .Where(x => filter.IsConfirmed == null || x.TypeId.HasValue == filter.IsConfirmed)
             .Include(x => x.Type)
+            .Include(x => x.Account)
             .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
     }

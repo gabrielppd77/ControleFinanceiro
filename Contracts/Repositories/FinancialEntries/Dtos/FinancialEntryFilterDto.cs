@@ -9,5 +9,6 @@ public record FinancialEntryFilterDto(
     decimal? FinalAmount,
     string? SearchText,
     Guid? TypeId,
+    Guid? AccountId,
     ClassificationEnum? Classification,
     Boolean? IsConfirmed);

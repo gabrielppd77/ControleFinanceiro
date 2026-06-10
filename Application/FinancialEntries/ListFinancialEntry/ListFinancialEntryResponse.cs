@@ -9,8 +9,11 @@ public record ListFinancialEntryResponse(
     Guid? TypeId,
     string? TypeName,
     string? TypeColor,
+    Guid? AccountId,
+    string? AccountName,
+    string? AccountColor,
     ClassificationEnum Classification,
     string ClassificationName,
-    string? ClassificationColor,
+    string ClassificationColor,
     string? Description,
     bool IsConfirmed);
