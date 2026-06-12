@@ -2,12 +2,14 @@
 using Contracts.Repositories.FinancialAccounts;
 using Contracts.Repositories.FinancialEntries;
 using Contracts.Repositories.FinancialTypes;
+using Contracts.Repositories.RecurringEntries;
 using Contracts.Repositories.Users;
 using Infrastructure.Database.Context;
 using Infrastructure.Database.Repositories;
 using Infrastructure.Database.Repositories.FinancialAccounts;
 using Infrastructure.Database.Repositories.FinancialEntries;
 using Infrastructure.Database.Repositories.FinancialTypes;
+using Infrastructure.Database.Repositories.RecurringEntries;
 using Infrastructure.Database.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -34,6 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IFinancialTypeRepository, FinancialTypeRepository>();
         services.AddScoped<IFinancialAccountRepository, FinancialAccountRepository>();
         services.AddScoped<IFinancialEntryRepository, FinancialEntryRepository>();
+        services.AddScoped<IRecurringEntryRepository, RecurringEntryRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
     }
 }

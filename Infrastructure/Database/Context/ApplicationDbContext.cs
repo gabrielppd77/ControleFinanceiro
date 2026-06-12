@@ -1,6 +1,7 @@
 ﻿using Domain.FinancialAccounts;
 using Domain.FinancialEntries;
 using Domain.FinancialTypes;
+using Domain.RecurringEntries;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,8 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     public DbSet<FinancialType> FinancialTypes { get; set; }
     public DbSet<FinancialAccount> FinancialAccounts { get; set; }
     public DbSet<FinancialEntry> FinancialEntries { get; set; }
+    public DbSet<RecurringEntry> RecurringEntries { get; set; }
+    public DbSet<RecurringEntryOccurrence> RecurringEntryOccurrences { get; set; }
     public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
