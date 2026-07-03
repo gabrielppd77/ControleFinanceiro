@@ -20,6 +20,6 @@ internal sealed class RecurringEntryOccurrenceConfiguration : IEntityTypeConfigu
             .HasOne(x => x.FinancialEntry)
             .WithOne()
             .HasForeignKey<RecurringEntryOccurrence>(x => x.FinancialEntryId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
