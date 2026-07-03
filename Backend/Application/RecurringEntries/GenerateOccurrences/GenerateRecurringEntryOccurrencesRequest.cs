@@ -1,0 +1,3 @@
+namespace Application.RecurringEntries.GenerateOccurrences;
+
+public record GenerateRecurringEntryOccurrencesRequest();

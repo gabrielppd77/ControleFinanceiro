@@ -8,4 +8,5 @@ public interface IRecurringEntryRepository
     Task<List<RecurringEntry>> GetAll(Guid userId);
     Task<RecurringEntry?> GetById(Guid id);
     void Remove(RecurringEntry recurringEntry);
+    Task<List<RecurringEntry>> GetActiveForProcessing(DateOnly date);
 }

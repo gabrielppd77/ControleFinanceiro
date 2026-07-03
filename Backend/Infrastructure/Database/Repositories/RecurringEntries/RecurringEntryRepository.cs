@@ -36,4 +36,11 @@ public class RecurringEntryRepository : IRecurringEntryRepository
     {
         _context.RecurringEntries.Remove(recurringEntry);
     }
+
+    public async Task<List<RecurringEntry>> GetActiveForProcessing(DateOnly date)
+    {
+        return await _context.RecurringEntries
+            .Where(x => x.IsActive && x.StartDate <= date && (x.EndDate == null || x.EndDate >= date))
+            .ToListAsync();
+    }
 }
